@@ -8,10 +8,8 @@ st.set_page_config(
     layout="wide"
 )
 
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
-
-if not BACKEND_URL.startswith("http"):
-    BACKEND_URL = f"https://{BACKEND_URL}.onrender.com"
+# Force the exact live HTTPS backend URL on Render
+BACKEND_URL = "https://resale-estimator-backend.onrender.com"
 
 
 st.markdown("""
