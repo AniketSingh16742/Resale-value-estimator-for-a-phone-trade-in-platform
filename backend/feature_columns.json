@@ -1,0 +1,8 @@
+["screen_size", "4g", "5g", "rear_camera_mp", "front_camera_mp", "internal_memory", "ram", "battery", "weight", "release_year", 
+"days_used", "normalized_new_price", "device_brand_Acer", "device_brand_Alcatel", "device_brand_Apple", "device_brand_Asus", 
+"device_brand_BlackBerry", "device_brand_Celkon", "device_brand_Coolpad", "device_brand_Gionee", "device_brand_Google", 
+"device_brand_HTC", "device_brand_Honor", "device_brand_Huawei", "device_brand_Infinix", "device_brand_Karbonn", "device_brand_LG",
+ "device_brand_Lava", "device_brand_Lenovo", "device_brand_Meizu", "device_brand_Micromax", "device_brand_Microsoft", 
+ "device_brand_Motorola", "device_brand_Nokia", "device_brand_OnePlus", "device_brand_Oppo", "device_brand_Others", "device_brand_Panasonic",
+  "device_brand_Realme", "device_brand_Samsung", "device_brand_Sony", "device_brand_Spice", "device_brand_Vivo", "device_brand_XOLO",
+   "device_brand_Xiaomi", "device_brand_ZTE", "os_Android", "os_Others", "os_Windows", "os_iOS", "is_tablet", "condition_score", "working"]

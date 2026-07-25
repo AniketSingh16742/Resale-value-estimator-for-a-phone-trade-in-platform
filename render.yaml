@@ -1,0 +1,24 @@
+services:
+  # 1. FastAPI Backend Service
+  - type: web
+    name: resale-estimator-backend
+    env: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    plan: free
+    region: singapore
+
+  # 2. Streamlit Frontend Service
+  - type: web
+    name: resale-estimator-frontend
+    env: docker
+    dockerContext: ./frontend
+    dockerfilePath: ./frontend/Dockerfile
+    plan: free
+    region: singapore
+    envVars:
+      - key: BACKEND_URL
+        fromService:
+          type: web
+          name: resale-estimator-backend
+          property: hostpath
