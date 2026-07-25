@@ -2,7 +2,7 @@
 
 Predicts the resale value of a used smartphone/tablet based on its specs, age, and physical condition — built end-to-end from raw data to a deployed web app.
 
-**Live demo:** [add your Render frontend URL here]
+**Live demo:** https://resale-estimator-frontend.onrender.com
 **Note:** hosted on Render's free tier — the first request after a period of inactivity may take 30-60 seconds while the service spins back up.
 
 ---
@@ -37,21 +37,19 @@ Existing "used phone price" datasets predict a device's price from its specs alo
 | Model | MAE | R² |
 |---|---|---|
 | Dummy baseline (predicts mean) | 0.050 | ~0.00 |
-| Linear Regression | [add your final number] | [add] |
-| Ridge | [add] | [add] |
-| Lasso | [add] | [add] |
-| Random Forest | [add] | [add] |
-| **XGBoost (selected)** | **[add]** | **[add]** |
-
-*(Numbers above are from the corrected `depreciation_ratio` target — the log-transform fix — not the earlier, incorrect version. Fill in with your final re-run results.)*
+| Linear Regression | 0.079359 | 0.617661 |
+| Ridge | 0.079442 | 0.617517 |
+| Lasso | 0.079431 | 0.621251 |
+| Random Forest | 0.072890 | 0.690109 |
+| **XGBoost (selected)** | **0.071007** | **0.705025** |
 
 **XGBoost was selected as the production model** — chosen deliberately over LightGBM as well, since XGBoost's level-wise tree growth is more conservative on a smaller dataset (~3,450 rows) than LightGBM's leaf-wise growth, which is more overfit-prone at this scale.
 
 ## Key findings
 
 - Linear models plateaued around R² ≈ 0.28, and the correlation heatmap confirmed why — no single spec correlates strongly with depreciation rate on its own, pointing to non-linear feature interactions.
-- [Add: how much condition_score/working improved things once added — this was expected to be a strong predictor]
-- [Add: what SHAP/feature importance showed as the top drivers once you run it]
+- Adding the features like working and condition_score helps the user to be more transparent about the product and makes it more easier for the model to predict however due to lack of these features from the original dataset i have to synthetically with the help of days_used form these features which ofcourse was not much accurate but was important for this kind of project.
+- For random forest regressor normalised_new_price was the most important feature, but for xgboost release_year was the most important feature.
 
 ## Tech stack & architecture
 
