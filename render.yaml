@@ -21,4 +21,4 @@ services:
         fromService:
           type: web
           name: resale-estimator-backend
-          property: hostpath
+          property: host
