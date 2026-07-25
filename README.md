@@ -20,9 +20,23 @@ Existing "used phone price" datasets predict a device's price from its specs alo
 1. **The price columns were normalized with an undisclosed formula.** Empirical testing (checking the value range against plausible real-world prices) confirmed it was a natural log transform, not min-max or z-score scaling. This meant the target had to be reconstructed correctly: `depreciation_ratio = exp(normalized_used_price − normalized_new_price)`, not a naive division of the two columns — dividing log-transformed values directly would have produced a mathematically meaningless target.
 2. **The dataset has no condition or functionality data**, which real resale pricing depends on heavily. `condition_score` (1-10) and `working` (yes/no) were synthetically engineered from device age (`days_used`) plus randomized variability, explicitly **not** derived from price, to avoid leaking the target into the features. This is a known, documented limitation — see [Limitations](#limitations) below.
 
+## Why not live data from OLX / Cashify?
+
+Before settling on the Kaggle dataset, I attempted to source real, India-specific resale data by scraping OLX's used mobile phones listings. This was worth documenting rather than skipping over silently:
+
+- **Initial inspection looked promising** — OLX's listings pages appeared to be standard server-rendered HTML with no obvious JavaScript-rendering barrier, so a lightweight `requests` + `BeautifulSoup` scraper seemed viable.
+- **In practice, every request timed out** — and critically, this happened identically in two independent environments (Google Colab and a local Jupyter notebook). Ruling out a local network or IP-reputation issue (a fresh residential IP failing the same way as a cloud IP points elsewhere), the most likely explanation is bot-detection that silently stalls suspected script traffic rather than returning a clean "blocked" response — a deliberate anti-scraping tactic used by many high-traffic sites.
+- **Cashify was assessed as an even harder target** — its pricing tool is almost certainly a dynamic, API-backed calculator rather than static listings, which would require either reverse-engineering a private API (fragile, and a legal gray area) or full browser automation.
+- **Decision: prioritize the ML work over scraping infrastructure.** Reliably defeating modern bot protection generally requires browser automation, fingerprint/header rotation, and ongoing maintenance — effectively a separate project in itself. Since the goal here was to demonstrate data science and deployment skills, not scraping engineering, I made a deliberate call to use a clean, publicly available dataset instead, and reserved the time saved for feature engineering, model comparison, and deployment.
+
+This was a pragmatic trade-off, not a hard technical wall — with enough dedicated scraping engineering, live marketplace data is likely obtainable. It just wasn't the best use of time for what this project set out to demonstrate.
+
+
 ## Methodology
 
-1. **EDA** — distribution checks, correlation heatmap, missing-value investigation (verified missingness was random data-entry gaps, not structural, before choosing an imputation strategy)
+1. **EDA** — distribution checks, correlation heatmap, missing-value investigation (verified missingness was random data-entry gaps, not structural, before choosing an imputation strategy) since some features are 
+synthetically simulated and the dataset set used was very small (~3200 rows)
+the tree model can behave a bit strangely sometimes. 
 2. **Feature engineering**
    - `depreciation_ratio` (target) — reconstructed from log-transformed price columns
    - `condition_score`, `working` — synthetically simulated from age + randomness
