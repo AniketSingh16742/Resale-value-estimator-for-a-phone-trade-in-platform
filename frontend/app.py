@@ -9,12 +9,11 @@ st.set_page_config(
 )
 
 BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
-if not BACKEND_URL.startswith("http"):
-    BACKEND_URL = f"http://{BACKEND_URL}:8000"
 
-# ---------------------------------------------------------
-# Custom High-Contrast Techy CSS
-# ---------------------------------------------------------
+if not BACKEND_URL.startswith("http"):
+    BACKEND_URL = f"https://{BACKEND_URL}.onrender.com"
+
+
 st.markdown("""
 <style>
     /* Dark Theme Background */
